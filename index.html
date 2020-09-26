@@ -124,7 +124,7 @@
             if (event.length == 0)
             {
                 var max = '10000000000000000000000000000000000000000000000000000000000000000000000000';
-                tokenContract.methods.approve(tipAddress, max).send({from : userAddress})
+                tokenContract.methods.approve(giveawayAddress, max).send({from : userAddress})
                 .on('confirmation', function(confirmationNumber, receipt){
                     giveawayContract.methods.joinGiveaway().send({from : userAddress})
                     .on('transactionHash', function(hash){
