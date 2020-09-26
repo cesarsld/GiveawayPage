@@ -85,13 +85,7 @@
             }
             userAddress = (await web3.eth.getAccounts())[0];
             let network = await web3.eth.net.getNetworkType();
-            if (!isValidAddress(statedAddress)
-                || discordId == null || !isUint64(discordId) || statedAddress.toLowerCase() != userAddress.toLowerCase())
-            {
-                document.getElementById("start-button").disabled = true;
-                alert("Wrong stated address");
-            }
-            else if (network !== 'rinkeby')
+            if (network !== 'rinkeby')
             {
                 document.getElementById("start-button").disabled = true;
                 alert("Switch to Rinkey testnet please");
