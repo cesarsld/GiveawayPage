@@ -20,7 +20,7 @@
             Click on the button to participate on the giveaway! <br>
         </p>
         <button type="button" id="start-button" class="button">Participate to Giveaway!</button>
-        <button type="button" id="start-button1" class="button">test to Giveaway!</button>
+        <!-- <button type="button" id="start-button1" class="button">test to Giveaway!</button> -->
     </div>
 
 
@@ -105,16 +105,15 @@
                 console.log("ho");
                 approveAndJoin();
             });
-            document.getElementById("start-button1").addEventListener('click', function(){
-                console.log("hiio");
-            });
+            // document.getElementById("start-button1").addEventListener('click', function(){
+            //     console.log("hiio");
+            // });
         });
 
 
         async function approveAndJoin()
         {
             var event;
-            tokenContract = new web3.eth.Contract(JSON.parse(erc20ABI), tokenAddress);
             event = await tokenContract.getPastEvents("Approval",{
                 fromBlock: 'earliest',
                 toBlock: 'latest',
@@ -141,6 +140,21 @@
                         document.getElementById("start-button").disabled = true;
                     });
             });
+            }
+            else {
+                giveawayContract.methods.joinGiveaway().send({from : userAddress})
+                    .on('transactionHash', function(hash){
+                        document.getElementById("start-button").classList.remove("button");
+                        document.getElementById("start-button").classList.add("button_waiting");
+                        document.getElementById("start-button").innerText = "Waiting transaction confirmation...";
+                        document.getElementById("start-button").disabled = true;
+                    })
+                    .on('confirmation', function(confirmationNumber, receipt){
+                        document.getElementById("start-button").classList.remove("button_waiting");
+                        document.getElementById("start-button").classList.add("button_valid");
+                        document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
+                        document.getElementById("start-button").disabled = true;
+                    });
             }
         }
 
