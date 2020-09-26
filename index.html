@@ -100,7 +100,8 @@
                 nftContract = new web3.eth.Contract(JSON.parse(nftABI), nftAddress);
                 let dec = await getTokenDecimal();
                 let nftSymbol = await getNFTSymbol();
-                document.getElementById("d-name").innerHTML += "You must pay " + convertUintToReadable(req.toString())  + " " + await getTokenSymbol() + "to participate.\n"
+                var tokenSym = await getTokenSymbol();
+                document.getElementById("d-name").innerHTML += "You must pay " + convertUintToReadable(req.toString())  + " " + tokenSym + " to participate.\n"
                     + nftSymbol + " #" + nftId + " is up for grabs!";
             }
         });
