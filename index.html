@@ -20,6 +20,7 @@
             Click on the button to participate on the giveaway! <br>
         </p>
         <button type="button" id="start-button" class="button">Participate to Giveaway!</button>
+        <button type="button" id="start-button1" class="button">test to Giveaway!</button>
     </div>
 
 
@@ -100,12 +101,15 @@
                 document.getElementById("d-box").innerHTML += "<p>\nYou must pay " + convertUintToReadable(req.toString())  + " " + tokenSym + " to participate.\n"
                     + nftSymbol + " #" + nftId + " is up for grabs!</p>";
             }
+            document.getElementById("start-button").addEventListener('click', function(){
+                console.log("ho");
+                approveAndJoin();
+            });
+            document.getElementById("start-button1").addEventListener('click', function(){
+                console.log("hiio");
+            });
         });
 
-        document.getElementById("start-button").addEventListener('click', function(){
-            console.log("ho");
-            approveAndJoin();
-        });
 
         async function approveAndJoin()
         {
