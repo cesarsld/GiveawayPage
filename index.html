@@ -101,7 +101,7 @@
                 let dec = await getTokenDecimal();
                 let nftSymbol = await getNFTSymbol();
                 var tokenSym = await getTokenSymbol();
-                document.getElementById("d-box").innerHTML += "\nYou must pay " + convertUintToReadable(req.toString())  + " " + tokenSym + " to participate.\n"
+                document.getElementById("d-box").innerText += "\nYou must pay " + convertUintToReadable(req.toString())  + " " + tokenSym + " to participate.\n"
                     + nftSymbol + " #" + nftId + " is up for grabs!";
             }
         });
