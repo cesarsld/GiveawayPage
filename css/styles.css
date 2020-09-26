@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@800&family=Varela+Round&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Inconsolata:wght@500'); */
+@import url('https://fonts.googleapis.com/css?family=Inconsolata:wght@900&display=swap');
+
+html {
+  font-size: 16px;
+  background: #150437;
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inconsolata', sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+.phone {
+  width: 100%;
+  max-width: 1400px;
+  box-sizing: border-box;
+  margin: 16px auto;
+  border-radius: 40px;
+  padding: 16px 0px;
+  padding-bottom: 16px;
+  background: #F5F8FF;
+  color: #686868;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.phone-center {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form {
+    margin-top: 2em;
+}
+
+.dialog-box {
+  background: white;
+  box-sizing: border-box;
+  padding: 16px 24px;
+  margin: 32px auto;
+  position: relative;
+  border-radius: 40px;
+  max-width: 800px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.final-box {
+  background: white;
+  box-sizing: border-box;
+  padding: 16px 24px;
+  margin: 32px auto;
+  position: relative;
+  border-radius: 40px;
+  max-width: 800px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.dialog-box-lng {
+  text-align: center;
+}
+
+.dialog-box-lng p,
+.dialog-box-lng select {
+  display: inline;
+}
+
+.dialog-box-lng select {
+  font-size: 1rem;
+  padding: 4px;
+  font-weight: bold;
+  border-radius: 4px;
+  border-color: #DEF2D9;
+  color: #837865;
+  cursor: pointer;
+  
+}
+
+.dialog-box-lng select:hover {
+  background-color: #EBFEFD;
+  border-color: #5ECEDB;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+}
+
+.dialog-box-lng select:focus {
+  outline: none;
+}
+
+.dialog-box p {
+  font-family: 'Inconsolata', monospace;
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: #6c757d;
+  letter-spacing: 0.2px;
+  line-height: 1.8rem;
+}
+
+.final-box {
+  font-family: 'Inconsolata', monospace;
+  font-weight: bold;
+  font-size: 30px;
+  color: #6c757d;
+  letter-spacing: 0.2px;
+  line-height: 1.8rem;
+  text-align: center;
+}
+
+.final-box1 p {
+  font-family: 'Inconsolata', monospace;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: #6c757d;
+  letter-spacing: 0.2px;
+  line-height: 1.8rem;
+  text-align: center;
+}
+
+.dialog-box b,
+.dialog-box a {
+  color: #007bff;
+  
+}
+
+.dialog-box i {
+  font-style: normal;
+  color: #aaa;
+}
+
+.dialog-box a:hover {
+  color: #5ECEDB
+}
+
+.dialog-box .dialog-box__name {
+  position: absolute;
+  left: 16px;
+  top: -28px;
+  font-size: 1rem;
+  color: #3a3a3a;
+  padding: 4px 16px;
+  background: #d8d8d8;
+  border-radius: 40px;
+}
+
+
+
+input[type=text]:placeholder-shown {
+  background: #f3f3f3;
+}
+
+input[type=text]:not(:placeholder-shown) {
+  background: transparent;
+  color: #0AB5CD;
+}
+
+input[type=text]:placeholder-shown:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  transition: 0.2s all;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.09);
+}
+
+input[type=text]:focus {
+  outline: none;
+  transform: scale(1.1);
+  transition: 0.2s all;
+  background: white;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.09);
+}
+
+input[type=text]:focus::placeholder {
+  opacity: 0;
+}
+
+input[type=text] {
+  width: 200px;
+  text-align: center;
+}
+
+input[type=text]:disabled {
+  background: inherit;
+}
+
+input[type=text]:disabled:hover {
+  box-shadow: none;
+  transform: none;
+  cursor: default;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=text] {
+  -moz-appearance: textfield;
+}
+
+
+.input__radio-buttons input[type="radio"]:checked+label {
+  background: #0AB5CD;
+  color: #FFF;
+}
+
+.button {
+  color: #fff9f9;
+  font-family: inherit;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-width: 0px;
+  border-radius: 40px;
+  background: #6f42c1;
+  font-size: 1.2rem;
+  
+  position: relative;
+  margin: 16px auto;
+  display: block;
+}
+
+
+.button_valid {
+  color: #fff9f9;
+  font-family: inherit;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-width: 0px;
+  border-radius: 40px;
+  background: #1ecf62;
+  font-size: 1.2rem;
+  
+  position: relative;
+  margin: 16px auto;
+  display: block;
+}
+
+.button_valid:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.09);
+  transition: 0.2s all;
+}
+
+.button:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  opacity: 1;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05), 0 3px 6px rgba(0, 0, 0, 0.09);
+  transition: 0.2s all;
+}
+
+button:focus {outline:0;}
+
+select:focus {outline:0;}
+
+.button.button--reset {
+  color: #6f42c1;
+}
+
+select {
+  font-size: large;
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
+.overlay-buttons {
+  text-align: center;
+}
+
+.overlay-buttons .button {
+  margin: 5px;
+}
+
+
+
+.hidden, .hidden:hover {
+  transition: opacity 1s ease-out;
+  opacity: 0;
+  overflow: hidden;
+}
+.visible {
+  transition: opacity 1s ease-out;
+  opacity: 1;
+}
