@@ -97,17 +97,19 @@
                 document.getElementById("start-button").disabled = true;
                 alert("Switch to Rinkey testnet please");
             }
-            giveawayContract = new web3.eth.Contract(JSON.parse(giveawayABI), giveawayAddress);
-            tokenAddress = await getTokenAddressFromGiveaway();
-            req = await getTokenReqFromGiveaway();
-            nftAddress = await getNftAddressFromGiveaway();
-            nftId = await getNftTokenFromGiveaway();
-            tokenContract = new web3.etth.Contract(JSON.parse(erc20ABI), tokenAddress);
-            nftContract = new web3.etth.Contract(JSON.parse(nftABI), nftAddress);
-            let dec = await getTokenDecimal();
-            let nftSymbol = await getNFTSymbol();
-            document.getElementById("d-name").innerHTML += "You must pay " + convertUintToReadable(req.toString())  + " " + await getTokenSymbol() + "to participate.\n"
-                + nftSymbol + " #" + nftId + " is up for grabs!";
+            else {
+                giveawayContract = new web3.eth.Contract(JSON.parse(giveawayABI), giveawayAddress);
+                tokenAddress = await getTokenAddressFromGiveaway();
+                req = await getTokenReqFromGiveaway();
+                nftAddress = await getNftAddressFromGiveaway();
+                nftId = await getNftTokenFromGiveaway();
+                tokenContract = new web3.etth.Contract(JSON.parse(erc20ABI), tokenAddress);
+                nftContract = new web3.etth.Contract(JSON.parse(nftABI), nftAddress);
+                let dec = await getTokenDecimal();
+                let nftSymbol = await getNFTSymbol();
+                document.getElementById("d-name").innerHTML += "You must pay " + convertUintToReadable(req.toString())  + " " + await getTokenSymbol() + "to participate.\n"
+                    + nftSymbol + " #" + nftId + " is up for grabs!";
+            }
         });
 
         document.getElementById("start-button").addEventListener('click', function(){
