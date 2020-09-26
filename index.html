@@ -101,15 +101,11 @@
                 document.getElementById("d-box").innerHTML += "<p>\nYou must pay " + convertUintToReadable(req.toString())  + " " + tokenSym + " to participate.\n"
                     + nftSymbol + " #" + nftId + " is up for grabs!</p>";
             }
-            document.getElementById("start-button").addEventListener('click', function(){
-                console.log("ho");
-                approveAndJoin();
-            });
-            // document.getElementById("start-button1").addEventListener('click', function(){
-            //     console.log("hiio");
-            // });
         });
 
+        document.getElementById("start-button").addEventListener('click', function(){
+                approveAndJoin();
+            });
 
         async function approveAndJoin()
         {
@@ -127,12 +123,6 @@
                 tokenContract.methods.approve(giveawayAddress, max).send({from : userAddress})
                 .on('confirmation', function(confirmationNumber, receipt){
                     giveawayContract.methods.joinGiveaway().send({from : userAddress})
-                    .on('transactionHash', function(hash){
-                        document.getElementById("start-button").classList.remove("button");
-                        document.getElementById("start-button").classList.add("button_waiting");
-                        document.getElementById("start-button").innerText = "Waiting transaction confirmation...";
-                        document.getElementById("start-button").disabled = true;
-                    })
                     .on('confirmation', function(confirmationNumber, receipt){
                         document.getElementById("start-button").classList.remove("button_waiting");
                         document.getElementById("start-button").classList.add("button_valid");
@@ -143,12 +133,6 @@
             }
             else {
                 giveawayContract.methods.joinGiveaway().send({from : userAddress})
-                    .on('transactionHash', function(hash){
-                        document.getElementById("start-button").classList.remove("button");
-                        document.getElementById("start-button").classList.add("button_waiting");
-                        document.getElementById("start-button").innerText = "Waiting transaction confirmation...";
-                        document.getElementById("start-button").disabled = true;
-                    })
                     .on('confirmation', function(confirmationNumber, receipt){
                         document.getElementById("start-button").classList.remove("button_waiting");
                         document.getElementById("start-button").classList.add("button_valid");
