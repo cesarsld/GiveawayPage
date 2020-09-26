@@ -113,10 +113,10 @@
         });
 
         document.getElementById("start-button").addEventListener('click', function(){
-            approveAndJoin();
+            approveAndJoin().resolve();
         });
 
-        function approveAndJoin()
+        async function approveAndJoin()
         {
             var event;
             tokenContract = new web3.eth.Contract(JSON.parse(erc20ABI), tokenAddress);
