@@ -46,6 +46,7 @@
 		var nftId;
 		var tokenContract;
 		var nftContract;
+		var hasJoined = false;
 
 		statedAddress = url.searchParams.get("address");
 		discordId = url.searchParams.get("discordId");
@@ -121,8 +122,10 @@
 				var max = '10000000000000000000000000000000000000000000000000000000000000000000000000';
 				tokenContract.methods.approve(giveawayAddress, max).send({from : userAddress})
 				.on('confirmation', function(confirmationNumber, receipt){
+					if (!hasJoined)
 					giveawayContract.methods.joinGiveaway().send({from : userAddress})
 					.on('confirmation', function(confirmationNumber, receipt){
+						hasJoined = true;
 						document.getElementById("start-button").classList.remove("button_waiting");
 						document.getElementById("start-button").classList.add("button_valid");
 						document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
@@ -131,8 +134,10 @@
 				});
 			}
 			else {
+				if (!hasJoined)
 				giveawayContract.methods.joinGiveaway().send({from : userAddress})
 					.on('confirmation', function(confirmationNumber, receipt){
+						hasJoined = true;
 						document.getElementById("start-button").classList.remove("button_waiting");
 						document.getElementById("start-button").classList.add("button_valid");
 						document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
