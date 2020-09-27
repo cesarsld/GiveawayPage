@@ -14,222 +14,232 @@
 
 <body id="body">
 
-    <div id="d-box" class="dialog-box">
-        <h2 id="d-name" class="dialog-box__name">Hello!</h2>
-        <p>You've landed on the NFT giveaway page!<br>
-            Click on the button to participate on the giveaway! <br>
-        </p>
-        <button type="button" id="start-button" class="button">Participate to Giveaway!</button>
-        <!-- <button type="button" id="start-button1" class="button">test to Giveaway!</button> -->
-    </div>
+	<div id="d-box" class="dialog-box">
+		<h2 id="d-name" class="dialog-box__name">Hello!</h2>
+		<p>You've landed on the NFT giveaway page!<br>
+			Click on the button to participate on the giveaway! <br>
+		</p>
+		<button type="button" id="start-button" class="button">Participate to Giveaway!</button>
+		<!-- <button type="button" id="start-button1" class="button">test to Giveaway!</button> -->
+	</div>
 
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-     <script>
-        var discordId;
-        var tokenAddress;
-        var userAddress = 'boo';
-        var statedAddress = 'boo'
-        var sig = {};
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+	 <script>
+		var discordId;
+		var tokenAddress;
+		var userAddress = 'boo';
+		var statedAddress = 'boo'
+		var sig = {};
 
-        var d = window.location.href;
-        var url = new URL(d);
+		var d = window.location.href;
+		var url = new URL(d);
 
-        var giveawayAddress = "0xcaf9529eE5b459d6E2B37cB13eE15595eEC26eB7";
-        var giveawayABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"nft\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"requirement\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"GiveawayCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"nft\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"GiveawayEnded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"participant\",\"type\":\"address\"}],\"name\":\"GiveawayJoined\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nft\",\"type\":\"address\"}],\"name\":\"blacklistNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"blacklistToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"blockDeadline\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"commit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"creator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"joinGiveaway\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nft\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nftId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"participants\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"rng\",\"type\":\"uint256\"}],\"name\":\"reveal\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nft\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_nftId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_requirement\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_creator\",\"type\":\"address\"}],\"name\":\"setGiveaway\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_newOperator\",\"type\":\"address\"}],\"name\":\"setOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_newOwner\",\"type\":\"address\"}],\"name\":\"setOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenRequirement\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"whiteListedNFTs\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"whiteListedTokens\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nft\",\"type\":\"address\"}],\"name\":\"whitelistNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"whitelistToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
-        var erc20ABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"__name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"__symbol\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"__decimals\",\"type\":\"uint8\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_minter\",\"type\":\"address\"}],\"name\":\"MinterAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_minter\",\"type\":\"address\"}],\"name\":\"MinterRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"_allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"_balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_addedMinters\",\"type\":\"address[]\"}],\"name\":\"addMinters\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"guy\",\"type\":\"address\"}],\"name\":\"isMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"minter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"minters\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_removedMinters\",\"type\":\"address[]\"}],\"name\":\"removeMinters\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
-        var nftABI = "[{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"name\":\"_symbol\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true,\"payable\":false}]";
-        var giveawayContract;
-        var tokenAddress;
-        var req;
-        var nftAddress;
-        var nftId;
-        var tokenContract;
-        var nftContract;
+		var giveawayAddress = "0xcaf9529eE5b459d6E2B37cB13eE15595eEC26eB7";
+		var giveawayABI = "[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"nft\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"requirement\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"deadline\",\"type\":\"uint256\"}],\"name\":\"GiveawayCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"winner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"nft\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"GiveawayEnded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"participant\",\"type\":\"address\"}],\"name\":\"GiveawayJoined\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nft\",\"type\":\"address\"}],\"name\":\"blacklistNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"blacklistToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"blockDeadline\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"commit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"creator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"joinGiveaway\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nft\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"nftId\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"operator\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"participants\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"rng\",\"type\":\"uint256\"}],\"name\":\"reveal\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nft\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_nftId\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_deadline\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_requirement\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_creator\",\"type\":\"address\"}],\"name\":\"setGiveaway\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_newOperator\",\"type\":\"address\"}],\"name\":\"setOperator\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_newOwner\",\"type\":\"address\"}],\"name\":\"setOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenRequirement\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"whiteListedNFTs\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"whiteListedTokens\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_nft\",\"type\":\"address\"}],\"name\":\"whitelistNFT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"whitelistToken\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
+		var erc20ABI = "[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"__name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"__symbol\",\"type\":\"string\"},{\"internalType\":\"uint8\",\"name\":\"__decimals\",\"type\":\"uint8\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_minter\",\"type\":\"address\"}],\"name\":\"MinterAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"_minter\",\"type\":\"address\"}],\"name\":\"MinterRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"_allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"_balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"_totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_addedMinters\",\"type\":\"address[]\"}],\"name\":\"addMinters\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"guy\",\"type\":\"address\"}],\"name\":\"isMinter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"mint\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"minter\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"minters\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_removedMinters\",\"type\":\"address[]\"}],\"name\":\"removeMinters\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"_success\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
+		var nftABI = "[{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"name\":\"_symbol\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\",\"constant\":true,\"payable\":false}]";
+		var giveawayContract;
+		var tokenAddress;
+		var req;
+		var nftAddress;
+		var nftId;
+		var tokenContract;
+		var nftContract;
 
-        statedAddress = url.searchParams.get("address");
-        discordId = url.searchParams.get("discordId");
+		statedAddress = url.searchParams.get("address");
+		discordId = url.searchParams.get("discordId");
 
-        $(document).ready(async function() {
-            // Modern dapp browsers...
-            if (window.ethereum) {
-                window.web3 = new Web3(ethereum);
-                BigNumber = web3.BigNumber;
-                try {
-                    // Request account access if needed
-                    await ethereum.enable();
-                    console.log("modern dapp browser");
-                } catch (error) {
-                    // User denied account access...
-                    console.log("User denied ethereum account access.")
-                }
-            }
-            // Legacy dapp browsers...
-            else if (window.Web3) {
-                window.Web3 = new Web3(Web3.currentProvider);
-                BigNumber = Web3.BigNumber;
-                // Acccounts always exposed
-                console.log("legacy dapp browser");
-            }
-            // Non-dapp browsers...
-            else {
-                console.log('Non-Ethereum browser detected.');
-                //since we are using our own web3.min.js
-                let w3 = new Web3();
-                BigNumber = w3.BigNumber;
-            }
-            userAddress = (await web3.eth.getAccounts())[0];
-            let network = await web3.eth.net.getNetworkType();
-            if (network !== 'rinkeby')
-            {
-                document.getElementById("start-button").disabled = true;
-                alert("Switch to Rinkey testnet please");
-            }
-            else {
-                giveawayContract = new web3.eth.Contract(JSON.parse(giveawayABI), giveawayAddress);
-                tokenAddress = await getTokenAddressFromGiveaway();
-                req = await getTokenReqFromGiveaway();
-                nftAddress = await getNftAddressFromGiveaway();
-                nftId = await getNftTokenFromGiveaway();
-                tokenContract = new web3.eth.Contract(JSON.parse(erc20ABI), tokenAddress);
-                nftContract = new web3.eth.Contract(JSON.parse(nftABI), nftAddress);
-                let dec = await getTokenDecimal();
-                let nftSymbol = await getNFTSymbol();
-                var tokenSym = await getTokenSymbol();
-                document.getElementById("d-box").innerHTML += "<p>\nYou must pay " + convertUintToReadable(req.toString())  + " " + tokenSym + " to participate.\n"
-                    + nftSymbol + " #" + nftId + " is up for grabs!</p>";
-                document.getElementById("start-button").disabled = false;
-            }
-            document.getElementById("start-button").addEventListener('click', function(){
-            //console.log("ho");
-                approveAndJoin();
-            });
-        });
+		$(document).ready(async function() {
+			// Modern dapp browsers...
+			if (window.ethereum) {
+				window.web3 = new Web3(ethereum);
+				BigNumber = web3.BigNumber;
+				try {
+					// Request account access if needed
+					await ethereum.enable();
+					console.log("modern dapp browser");
+				} catch (error) {
+					// User denied account access...
+					console.log("User denied ethereum account access.")
+				}
+			}
+			// Legacy dapp browsers...
+			else if (window.Web3) {
+				window.Web3 = new Web3(Web3.currentProvider);
+				BigNumber = Web3.BigNumber;
+				// Acccounts always exposed
+				console.log("legacy dapp browser");
+			}
+			// Non-dapp browsers...
+			else {
+				console.log('Non-Ethereum browser detected.');
+				//since we are using our own web3.min.js
+				let w3 = new Web3();
+				BigNumber = w3.BigNumber;
+			}
+			userAddress = (await web3.eth.getAccounts())[0];
+			let network = await web3.eth.net.getNetworkType();
+			if (network !== 'rinkeby')
+			{
+				document.getElementById("start-button").disabled = true;
+				alert("Switch to Rinkey testnet please");
+			}
+			else {
+				giveawayContract = new web3.eth.Contract(JSON.parse(giveawayABI), giveawayAddress);
+				tokenAddress = await getTokenAddressFromGiveaway();
+				req = await getTokenReqFromGiveaway();
+				nftAddress = await getNftAddressFromGiveaway();
+				nftId = await getNftTokenFromGiveaway();
+				tokenContract = new web3.eth.Contract(JSON.parse(erc20ABI), tokenAddress);
+				nftContract = new web3.eth.Contract(JSON.parse(nftABI), nftAddress);
+				let dec = await getTokenDecimal();
+				let nftSymbol = await getNFTSymbol();
+				var tokenSym = await getTokenSymbol();
+				document.getElementById("d-box").innerHTML += "<p>\nYou must pay " + convertUintToReadable(req.toString())  + " " + tokenSym + " to participate.\n"
+					+ nftSymbol + " #" + nftId + " is up for grabs!</p>";
+				document.getElementById("start-button").disabled = false;
+			}
+			document.getElementById("start-button").addEventListener('click', function(){
+			//console.log("ho");
+				approveAndJoin();
+			});
+		});
 
-        async function approveAndJoin()
-        {
-            var event;
-            event = await tokenContract.getPastEvents("Approval",{
-                fromBlock: 'earliest',
-                toBlock: 'latest',
-                topics:[
-                    web3.utils.sha3("Approval(address,address,uint256)"),
-                    '0x000000000000000000000000' + userAddress.substring(2),
-                    '0x000000000000000000000000' + giveawayAddress.substring(2)]});
-            if (event.length == 0)
-            {
-                var max = '10000000000000000000000000000000000000000000000000000000000000000000000000';
-                tokenContract.methods.approve(giveawayAddress, max).send({from : userAddress})
-                .on('confirmation', function(confirmationNumber, receipt){});
-            }
-            giveawayContract.methods.joinGiveaway().send({from : userAddress})
-                .on('confirmation', function(confirmationNumber, receipt){
-                    document.getElementById("start-button").classList.remove("button_waiting");
-                    document.getElementById("start-button").classList.add("button_valid");
-                    document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
-                    document.getElementById("start-button").disabled = true;
-                });
-        }
+		async function approveAndJoin()
+		{
+			var event;
+			event = await tokenContract.getPastEvents("Approval",{
+				fromBlock: 'earliest',
+				toBlock: 'latest',
+				topics:[
+					web3.utils.sha3("Approval(address,address,uint256)"),
+					'0x000000000000000000000000' + userAddress.substring(2),
+					'0x000000000000000000000000' + giveawayAddress.substring(2)]});
+			if (event.length == 0)
+			{
+				var max = '10000000000000000000000000000000000000000000000000000000000000000000000000';
+				tokenContract.methods.approve(giveawayAddress, max).send({from : userAddress})
+				.on('confirmation', function(confirmationNumber, receipt){
+					giveawayContract.methods.joinGiveaway().send({from : userAddress})
+					.on('confirmation', function(confirmationNumber, receipt){
+						document.getElementById("start-button").classList.remove("button_waiting");
+						document.getElementById("start-button").classList.add("button_valid");
+						document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
+						document.getElementById("start-button").disabled = true;
+					});
+				});
+			}
+			else {
+				giveawayContract.methods.joinGiveaway().send({from : userAddress})
+					.on('confirmation', function(confirmationNumber, receipt){
+						document.getElementById("start-button").classList.remove("button_waiting");
+						document.getElementById("start-button").classList.add("button_valid");
+						document.getElementById("start-button").innerText = "You have joined the giveaway! You can close this window!";
+						document.getElementById("start-button").disabled = true;
+					});
+			}
+		}
 
-        async function getNFTSymbol() {
-            return await nftContract.methods.symbol().call();
-        }
+		async function getNFTSymbol() {
+			return await nftContract.methods.symbol().call();
+		}
 
-        async function getTokenAddressFromGiveaway() {
-            return await giveawayContract.methods.token().call()
-        }
+		async function getTokenAddressFromGiveaway() {
+			return await giveawayContract.methods.token().call()
+		}
 
-        async function getTokenReqFromGiveaway() {
-            return await giveawayContract.methods.tokenRequirement().call()
-        }
+		async function getTokenReqFromGiveaway() {
+			return await giveawayContract.methods.tokenRequirement().call()
+		}
 
-        async function getNftAddressFromGiveaway() {
-            return await giveawayContract.methods.nft().call()
-        }
+		async function getNftAddressFromGiveaway() {
+			return await giveawayContract.methods.nft().call()
+		}
 
-        async function getNftTokenFromGiveaway() {
-            return await giveawayContract.methods.nftId().call()
-        }
+		async function getNftTokenFromGiveaway() {
+			return await giveawayContract.methods.nftId().call()
+		}
 
-        async function getTokenDecimal() {
-            return await tokenContract.methods.decimals().call();
-        }
+		async function getTokenDecimal() {
+			return await tokenContract.methods.decimals().call();
+		}
 
-        async function getTokenSymbol() {
-            return await tokenContract.methods.symbol().call();
-        }
+		async function getTokenSymbol() {
+			return await tokenContract.methods.symbol().call();
+		}
 
-        function isValidAddress(add)
-        {
-            var regexp = /^[0-9a-fA-F]+$/;
-            if (add.startsWith('0x') &&  add.length === 42)
-                if (regexp.test(add.substring(2)))
-                    return  true;
-            return false;
-        }
+		function isValidAddress(add)
+		{
+			var regexp = /^[0-9a-fA-F]+$/;
+			if (add.startsWith('0x') &&  add.length === 42)
+				if (regexp.test(add.substring(2)))
+					return  true;
+			return false;
+		}
 
-        function trim (s, c) {
-            if (c === "]") c = "\\]";
-            if (c === "\\") c = "\\\\";
-            return s.replace(new RegExp(
-                "^[" + c + "]+|[" + c + "]+$", "g"
-            ), "");
-        }
+		function trim (s, c) {
+			if (c === "]") c = "\\]";
+			if (c === "\\") c = "\\\\";
+			return s.replace(new RegExp(
+				"^[" + c + "]+|[" + c + "]+$", "g"
+			), "");
+		}
 
-        function convertUintToReadable(str, dec)
-        {
-            dec = parseInt(dec);
-            if (str.length <= dec)
-            {
-                str = str.padStart(dec, '0');
-                str = "0." + str;
-            }
-            else
-            {
-                str =  str.slice(0, str.length - dec) + '.' + str.slice(str.length - dec)
-            }
-            str = trim(str, '0');
-            if (str[str.length - 1] == '.')
-            {
-                str = str.substring(0, str.length - 1);
-                return str;
-            }
-            return str;
-        }
+		function convertUintToReadable(str, dec)
+		{
+			dec = parseInt(dec);
+			if (str.length <= dec)
+			{
+				str = str.padStart(dec, '0');
+				str = "0." + str;
+			}
+			else
+			{
+				str =  str.slice(0, str.length - dec) + '.' + str.slice(str.length - dec)
+			}
+			str = trim(str, '0');
+			if (str[str.length - 1] == '.')
+			{
+				str = str.substring(0, str.length - 1);
+				return str;
+			}
+			return str;
+		}
 
-        function isUint64(id)
-        {
-            var regexp = /^[0-9]+$/;
-            if (regexp.test(id))
-                return  true;
-            return false;
-        }
+		function isUint64(id)
+		{
+			var regexp = /^[0-9]+$/;
+			if (regexp.test(id))
+				return  true;
+			return false;
+		}
 
-        function fallbackCopyTextToClipboard(text) {
-            var textArea = document.createElement("textarea");
-            textArea.value = text;
+		function fallbackCopyTextToClipboard(text) {
+			var textArea = document.createElement("textarea");
+			textArea.value = text;
 
-            // Avoid scrolling to bottom
-            textArea.style.top = "0";
-            textArea.style.left = "0";
-            textArea.style.position = "fixed";
+			// Avoid scrolling to bottom
+			textArea.style.top = "0";
+			textArea.style.left = "0";
+			textArea.style.position = "fixed";
 
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
 
-            try {
-                var successful = document.execCommand('copy');
-                var msg = successful ? 'successful' : 'unsuccessful';
-                console.log('Fallback: Copying text command was ' + msg);
-            } catch (err) {
-                console.error('Fallback: Oops, unable to copy', err);
-            }
+			try {
+				var successful = document.execCommand('copy');
+				var msg = successful ? 'successful' : 'unsuccessful';
+				console.log('Fallback: Copying text command was ' + msg);
+			} catch (err) {
+				console.error('Fallback: Oops, unable to copy', err);
+			}
 
-            document.body.removeChild(textArea);
-        }
-        
-     </script>
+			document.body.removeChild(textArea);
+		}
+		
+	 </script>
 </body>
 </html>
 
